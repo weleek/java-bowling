@@ -28,95 +28,96 @@ public class ResultView {
     private final static String ENTER = System.lineSeparator();
 
     private ResultView() {}
+//
+//    private static String getStateOrName(String result) {
+//        int rightPadding = (FRAME_WIDTH - result.length()) / FRAME_WIDTH_HALF;
+//        int leftPadding = FRAME_WIDTH - result.length() - rightPadding;
+//        return SEPARATOR +
+//                StringUtils.generateBlank(leftPadding) +
+//                result +
+//                StringUtils.generateBlank(rightPadding);
+//    }
+//
+//    private static String getBlankFrameStates() {
+//        StringBuilder result = new StringBuilder();
+//        for (int i = ResultView.FIRST_ROUND; i < FINAL_ROUND; i++) {
+//            result.append(getStateOrName(BLANK));
+//        }
+//        return result.toString();
+//    }
+//
+//    private static String getBlankOrFrameState(Frame frame) {
+//        if (frame.hasResult()) {
+//            return getFrameStates(frame.states(), frame.downPins());
+//        }
+//        return getStateOrName(BLANK);
+//    }
+//
+//    private static String getFrameStates(List<State> states, DownPins downPins) {
+//        if (states.size() == FIRST_STATE) {
+//            return getFrameState(states.get(FIRST_INDEX), downPins);
+//        }
+//        String value = getFinalFrameStates(states, downPins);
+//        return getStateOrName(value);
+//    }
+//
+//    private static String getFinalFrameStates(List<State> states, DownPins downPins) {
+//        return IntStream.range(FIRST_INDEX, states.size())
+//                .mapToObj(i -> State.STRIKE.equals(states.get(i))
+//                        ? STRIKE
+//                        : getSpareOrGutter(downPins.count(i)))
+//                .collect(Collectors.joining(SEPARATOR));
+//    }
+//
+//    private static String getFrameState(State state, DownPins downPins) {
+//        if (State.STRIKE.equals(state)) {
+//            return getStateOrName(STRIKE);
+//        }
+//        if (State.SPARE.equals(state)) {
+//            String value = getSpareOrGutter(downPins.count(FIRST_INDEX)) + SEPARATOR + SPARE;
+//            return getStateOrName(value);
+//        }
+//        return getStateOrName(pinResult(downPins));
+//    }
+//
+//    private static String pinResult(DownPins downPins) {
+//        return downPins.downPins()
+//                .stream()
+//                .map(DownPin::count)
+//                .map(ResultView::getSpareOrGutter)
+//                .collect(Collectors.joining(SEPARATOR));
+//    }
+//
+//    private static String getSpareOrGutter(int pinCount) {
+//        if (pinCount == GUTTER_PIN_COUNT) {
+//            return GUTTER;
+//        }
+//        return String.valueOf(pinCount);
+//    }
+//
+//    public static String frameResult(Player player, Frames frames) {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append(getStateOrName(player.name()));
+//        for (Frame frame: frames.frames()) {
+//            stringBuilder.append(getBlankOrFrameState(frame));
+//        }
+//        return stringBuilder + SEPARATOR + ENTER;
+//    }
+//
+//    public static void showScoreBoard(Player player, Frames frames) {
+//        System.out.println(SCORE_TITLE +
+//                ENTER +
+//                frameResult(player, frames));
+//    }
+//
+//    public static void showScoreBoard(Player player) {
+//        String stringBuilder = SCORE_TITLE +
+//                ENTER +
+//                getStateOrName(player.name()) +
+//                getBlankFrameStates() +
+//                SEPARATOR +
+//                ENTER;
+//        System.out.println(stringBuilder);
+//    }
 
-    private static String getStateOrName(String result) {
-        int rightPadding = (FRAME_WIDTH - result.length()) / FRAME_WIDTH_HALF;
-        int leftPadding = FRAME_WIDTH - result.length() - rightPadding;
-        return SEPARATOR +
-                StringUtils.generateBlank(leftPadding) +
-                result +
-                StringUtils.generateBlank(rightPadding);
-    }
-
-    private static String getBlankFrameStates() {
-        StringBuilder result = new StringBuilder();
-        for (int i = ResultView.FIRST_ROUND; i < FINAL_ROUND; i++) {
-            result.append(getStateOrName(BLANK));
-        }
-        return result.toString();
-    }
-
-    private static String getBlankOrFrameState(Frame frame) {
-        if (frame.hasResult()) {
-            return getFrameStates(frame.states(), frame.downPins());
-        }
-        return getStateOrName(BLANK);
-    }
-
-    private static String getFrameStates(List<State> states, DownPins downPins) {
-        if (states.size() == FIRST_STATE) {
-            return getFrameState(states.get(FIRST_INDEX), downPins);
-        }
-        String value = getFinalFrameStates(states, downPins);
-        return getStateOrName(value);
-    }
-
-    private static String getFinalFrameStates(List<State> states, DownPins downPins) {
-        return IntStream.range(FIRST_INDEX, states.size())
-                .mapToObj(i -> State.STRIKE.equals(states.get(i))
-                        ? STRIKE
-                        : getSpareOrGutter(downPins.count(i)))
-                .collect(Collectors.joining(SEPARATOR));
-    }
-
-    private static String getFrameState(State state, DownPins downPins) {
-        if (State.STRIKE.equals(state)) {
-            return getStateOrName(STRIKE);
-        }
-        if (State.SPARE.equals(state)) {
-            String value = getSpareOrGutter(downPins.count(FIRST_INDEX)) + SEPARATOR + SPARE;
-            return getStateOrName(value);
-        }
-        return getStateOrName(pinResult(downPins));
-    }
-
-    private static String pinResult(DownPins downPins) {
-        return downPins.downPins()
-                .stream()
-                .map(DownPin::count)
-                .map(ResultView::getSpareOrGutter)
-                .collect(Collectors.joining(SEPARATOR));
-    }
-
-    private static String getSpareOrGutter(int pinCount) {
-        if (pinCount == GUTTER_PIN_COUNT) {
-            return GUTTER;
-        }
-        return String.valueOf(pinCount);
-    }
-
-    public static String frameResult(Player player, Frames frames) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getStateOrName(player.name()));
-        for (Frame frame: frames.frames()) {
-            stringBuilder.append(getBlankOrFrameState(frame));
-        }
-        return stringBuilder + SEPARATOR + ENTER;
-    }
-
-    public static void showScoreBoard(Player player, Frames frames) {
-        System.out.println(SCORE_TITLE +
-                ENTER +
-                frameResult(player, frames));
-    }
-
-    public static void showScoreBoard(Player player) {
-        String stringBuilder = SCORE_TITLE +
-                ENTER +
-                getStateOrName(player.name()) +
-                getBlankFrameStates() +
-                SEPARATOR +
-                ENTER;
-        System.out.println(stringBuilder);
-    }
 }
