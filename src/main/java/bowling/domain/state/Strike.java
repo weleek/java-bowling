@@ -1,10 +1,16 @@
 package bowling.domain.state;
 
+import bowling.domain.Score;
+import bowling.exception.CannotPitchingException;
+
 public class Strike implements State {
+    private final static String DISPLAY_RESULT = "X";
+    private final static int SCORE = 10;
+    private final static int LEFT = 2;
 
     @Override
     public State pitching(int downPin) {
-        throw new RuntimeException("더 이상 투구 할 수 없습니다.");
+        throw new CannotPitchingException();
     }
 
     @Override
@@ -19,6 +25,11 @@ public class Strike implements State {
 
     @Override
     public String getResult() {
-        return "X";
+        return DISPLAY_RESULT;
+    }
+
+    @Override
+    public Score getScore() {
+        return new Score(SCORE, LEFT);
     }
 }

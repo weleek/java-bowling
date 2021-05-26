@@ -1,12 +1,19 @@
 package bowling.domain.state;
 
+import bowling.domain.DownPin;
+import bowling.domain.Score;
+import bowling.exception.CannotPitchingException;
+
 public class Miss implements State {
-    private final int firstPin;
-    private final int secondPin;
+    private final static String SEPARATOR = "|";
+    private final static int LEFT = 0;
+
+    private final DownPin firstPin;
+    private final DownPin secondPin;
 
     public Miss(int firstPin, int secondPin) {
-        this.firstPin = firstPin;
-        this.secondPin = secondPin;
+        this.firstPin = new DownPin(firstPin);
+        this.secondPin = new DownPin(secondPin);
     }
 
     @Override
@@ -16,7 +23,7 @@ public class Miss implements State {
 
     @Override
     public State pitching(int downPin) {
-        throw new RuntimeException("더 이상 투구 할 수 없습니다.");
+        throw new CannotPitchingException();
     }
 
     @Override
@@ -26,6 +33,11 @@ public class Miss implements State {
 
     @Override
     public String getResult() {
-        return firstPin + "|" + secondPin;
+        return firstPin + SEPARATOR + secondPin;
+    }
+
+    @Override
+    public Score getScore() {
+        return new Score(firstPin.count() + secondPin.count(), LEFT);
     }
 }
