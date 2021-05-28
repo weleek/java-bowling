@@ -4,6 +4,7 @@ import bowling.domain.Score;
 import bowling.domain.state.Spare;
 import bowling.domain.state.State;
 import bowling.domain.state.Strike;
+import bowling.exception.CannotGenerateException;
 import bowling.exception.CannotPitchingException;
 
 import java.util.ArrayList;
@@ -16,6 +17,12 @@ public class FinalFrame extends Frame {
     private final static int FULL_PITCHING_COUNT = 3;
 
     private final List<State> states = new ArrayList<>();
+
+    public FinalFrame(int round) {
+        this.round = round;
+        this.nextFrame = null;
+    }
+
     @Override
     public void pitching(int downPin) {
         if (!isContinue()) {
@@ -39,6 +46,11 @@ public class FinalFrame extends Frame {
     @Override
     public Score getScore() {
         return null;
+    }
+
+    @Override
+    public Frame next() {
+        throw new CannotGenerateException();
     }
 
     private boolean isContinue() {

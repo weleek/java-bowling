@@ -27,8 +27,7 @@ public class InputView {
         return value(PLAYER_NAME);
     }
 
-    public static int pitchingNumber(int frameIndex) {
-        frameIndex += 1;
-        return Integer.parseInt(value(frameIndex + PITCHING_NUMBER));
+    public static int pitchingNumber(int currentRound) {
+        return Integer.parseInt(value(currentRound + PITCHING_NUMBER));
     }
 }
